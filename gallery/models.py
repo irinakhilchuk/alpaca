@@ -1,4 +1,6 @@
 from django.db import models
+from smart_selects.db_fields import ChainedManyToManyField
+from smart_selects.db_fields import ChainedForeignKey
 
 class Needles(models.Model):
     needles_size_choices = [
@@ -30,13 +32,18 @@ class Manufacturer(models.Model):
 class Yarn(models.Model):
     manufacturer=models.ForeignKey(Manufacturer, on_delete=models.CASCADE, default=1)
     name=models.CharField(max_length=40)
-    #colour=models.ManyToManyField(Colour)
-    #colour=models.ManyToManyField(Colour.objects.filter(colour_manufacturer__exact=yarn_manufacturer))
     def __str__(self):
         return self.name
 
 class Colour(models.Model):
-    yarn=models.ForeignKey(Yarn, on_delete=models.CASCADE, default=1)
+    manufacturer=models.ForeignKey(Manufacturer, on_delete=models.CASCADE, default=1)
+    yarn=ChainedForeignKey(
+        Yarn,
+        chained_field="manufacturer",
+        chained_model_field="manufacturer",
+        show_all=False,
+        auto_choose=True,
+        sort=True)
     name=models.CharField(max_length=20)
     number=models.CharField(max_length=10)
     image=models.ImageField(upload_to=None)
@@ -49,6 +56,12 @@ class Sweater(models.Model):
     name=models.CharField(max_length=20)
     needles=models.ManyToManyField(Needles)
     yarn=models.ForeignKey(Yarn, on_delete=models.CASCADE, default=1)
+    colour = ChainedManyToManyField(
+        Colour,
+        horizontal=True,
+        verbose_name='colour',
+        chained_field="yarn",
+        chained_model_field="yarn")
     image=models.ImageField(upload_to=None)
     def __str__(self):
         return self.name
