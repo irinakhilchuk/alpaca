@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCKTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+        <title>Emotional Support Alpaca</title>
+        
+    </head>
+    <body>
+        <header>
+            <h1>Emotional Support Alpaca</h1>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'layout' %}">Gallery</a></li>
+                    <li><a href="#">Yarn & Colours</a></li>
+                    <li><a href="#">About Knitting</a></li>
+                    <li><a href="#">Crocheting</a></li>
+                </ul>
+            </nav>
+            <main>
+                {% block content %}
+                {% endblock content %}
+            </main>
+            <footer>
+                <a href="mailto:irina.khilchuk@gmail.com">Contact me</a>
+            </footer>
+    </body>
+</html>

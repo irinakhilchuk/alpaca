@@ -1,0 +1,25 @@
+body {
+    background-color: #F0C4A0;
+}
+
+h1 {
+    background-color: #EBA677;
+}
+
+footer {
+    background-color: #EBA677;
+}
+
+.gallery {
+    column-count: 3;
+    column-gap: 5px;
+}
+img {
+    width: 100%;
+    padding: 5px 0 0 0;
+    opacity: 50%;
+}
+
+img:hover {
+    opacity: 100%;
+}
