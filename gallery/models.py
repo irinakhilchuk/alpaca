@@ -46,7 +46,7 @@ class Colour(models.Model):
         sort=True)
     name=models.CharField(max_length=20)
     number=models.CharField(max_length=10)
-    image=models.ImageField(upload_to=None)
+    image=models.ImageField(upload_to='media')
     def __str__(self):
         return self.name
 
@@ -62,6 +62,6 @@ class Sweater(models.Model):
         verbose_name='colour',
         chained_field="yarn",
         chained_model_field="yarn")
-    image=models.ImageField(upload_to=None)
+    image=models.ImageField(upload_to='media')
     def __str__(self):
         return self.name

@@ -1,5 +1,7 @@
 from django.shortcuts import render
+from gallery.models import Sweater
 
 def layout(request):
-    return render(request, 'gallery.html')
+    sweaters = Sweater.objects.all
+    return render(request, 'gallery.html', context={'sweaters':sweaters})
 # Create your views here.

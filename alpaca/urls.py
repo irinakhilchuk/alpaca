@@ -17,11 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from .views import home
-from gallery.views import layout
+from django.conf import settings
+from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
-    path('gallery/', layout, name='layout'),
+    path('gallery/', include('gallery.urls')),
+    path('yarncolours/', include('yarn.urls')),
     path('chaining/', include('smart_selects.urls')),
-]
+] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 

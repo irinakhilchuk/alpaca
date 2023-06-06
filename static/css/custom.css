@@ -23,3 +23,31 @@ footer {
 #photo:hover {
     opacity: 100%;
 }
+
+.smallimages {
+    column-count: 6;
+    column-gap: 5px;
+}
+img {
+    width: 100%;
+    padding: 5px 0 0 0;
+    opacity: 50%;
+}
+
+img:hover {
+    opacity: 100%;
+}
+
+.container {
+    position: relative;
+    display: none;
+}
+
+#imgtext {
+  position: absolute;
+  left: 27%;
+  top: 2%;
+  padding: 15px;
+  color: #6F3B20;
+  font-size: 15px;
+}
