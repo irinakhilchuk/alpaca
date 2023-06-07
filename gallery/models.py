@@ -32,6 +32,7 @@ class Manufacturer(models.Model):
 class Yarn(models.Model):
     manufacturer=models.ForeignKey(Manufacturer, on_delete=models.CASCADE, default=1)
     name=models.CharField(max_length=40)
+    
     def __str__(self):
         return self.name
 
@@ -63,5 +64,11 @@ class Sweater(models.Model):
         chained_field="yarn",
         chained_model_field="yarn")
     image=models.ImageField(upload_to='media')
+    
+    def get_other_colours(self):
+        syarn = self.yarn
+        return Colour.objects.filter(yarn=syarn)
+        
+        
     def __str__(self):
         return self.name

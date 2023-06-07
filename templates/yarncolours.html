@@ -3,27 +3,45 @@
 {% block content %}
     <div class="smallimages">
         {% for sweater in sweaters %}
-            <img id="photo" src="{{ sweater.image.url }}" alt="{{ sweater.name }}
-                {{ sweater.yarn.manufacturer }}
-                {{ sweater.yarn }}
-                {% for colour in sweater.colour.all %}
-                    {{ colour.name }}
-                {% endfor %}
-                {% for needles in sweater.needles.all %}
+            <img id="photo" src="{{ sweater.image.url }}" alt="{{ sweater.name }}"
+                data-yarnmanufacturer="{{ sweater.yarn.manufacturer }}"
+                data-yarn="{{ sweater.yarn }}"
+                data-colour="{% for colour in sweater.colour.all %}
+                    {{ colour.name }} ({{ colour.number }})
+                {% endfor %}"
+                data-needles="{% for needles in sweater.needles.all %}
                     {{ needles.size }}
-                {% endfor %}" onclick="expand(this);">
+                {% endfor %}"
+                data-othercolours="{% for colour in sweater.get_other_colours %}
+                    {{ colour.image }}
+                {% endfor %}"
+                onclick="expand(this);">
         {% endfor %}
     </div>
-    <div class="container">
+    <div class="imgcontainer">
         <img id="expandedimg" style="width:25%; opacity:1">
         <div id="imgtext"></div>
+        <div id="yarn"></div>
+        <div id="colour"></div>
+        <div id="needles"></div>
+        <div id="othercolours"></div>
     </div>
     <script>
         function expand(imgs) {
             var expandimg = document.getElementById("expandedimg");
             var imgText = document.getElementById("imgtext");
+            var yarnmanufacturer = document.getElementById("yarnmanufacturer");
+            var yarn = document.getElementById("yarn");
+            var colour = document.getElementById("colour");
+            var needles = document.getElementById("needles");
+            var othercolours = document.getElementById("othercolours");
             expandimg.src = imgs.src;
-            imgtext.innerHTML = imgs.alt;
+            imgtext.innerHTML = "Name: " + imgs.alt;
+            yarn.innerHTML = "Yarn: " + imgs.getAttribute('data-yarnmanufacturer') + ", " + imgs.getAttribute('data-yarn');
+            colour.innerHTML = "Colour: " + imgs.getAttribute('data-colour');
+            needles.innerHTML = "Needles size: " + imgs.getAttribute('data-needles');
+            othercolours.innerHTML = "Other colours of this yarn: " + imgs.getAttribute('data-othercolours');
+            othercolours.src = "alpaca" + imgs.getAttribute('data-othercolours');
             expandimg.parentElement.style.display = "block";
             }
     </script>

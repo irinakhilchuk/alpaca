@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from gallery.models import Sweater
+from gallery.models import Sweater, Colour
 
 def yarns(request):
     sweaters = Sweater.objects.all
